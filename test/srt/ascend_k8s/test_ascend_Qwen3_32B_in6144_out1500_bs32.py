@@ -14,7 +14,7 @@ class TestQwen3_32B(TestSingleMixUtils):
     envs = QWEN3_32B_ENVS
     dataset_name = "random"
     request_rate = 5.5
-    max_concurrency = 78
+    max_concurrency = 32
     input_len = 6144
     output_len = 1500
     random_range_ratio = 0.5

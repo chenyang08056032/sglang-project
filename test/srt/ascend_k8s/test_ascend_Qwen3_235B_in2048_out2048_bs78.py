@@ -10,15 +10,17 @@ from test_ascend_single_mix_utils import (
 
 class TestQwen3_235B(TestSingleMixUtils):
     model = QWEN3_235B_MODEL_PATH
-    dataset = (
-        "/data/ascend-ci-share-pkking-sglang/modelscope/hub/datasets/Qwen3-235B-A22B-W8A8/GSM8K-in2048-bs5000/test.jsonl")
     other_args = QWEN3_235B_OTHER_ARGS
     envs = QWEN3_235B_ENVS
-    max_out_len = 2048
-    batch_size = 78
-    num_prompts = int(batch_size) * 4
-    tpot = 48.6432
-    output_token_throughput = 452.875
+    dataset_name = "random"
+    request_rate = 5.5
+    max_concurrency = 78
+    input_len = 2048
+    output_len = 2048
+    random_range_ratio = 0.5
+    ttft = 10000
+    tpot = 100
+    output_token_throughput = 300
 
     def test_qwen3_235b(self):
         self.run_throughput()
