@@ -5,7 +5,7 @@ from test_ascend_single_mix_utils import (
     Qwen3_Next_80B_A3B_MODEL_PATH,
     Qwen3_Next_80B_A3B_OTHER_ARGS,
     Qwen3_Next_80B_A3B_ENVS,
-    run_command
+    run_command,
 )
 
 
