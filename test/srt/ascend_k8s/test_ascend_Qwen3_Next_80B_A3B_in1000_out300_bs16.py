@@ -5,7 +5,6 @@ from test_ascend_single_mix_utils import (
     Qwen3_Next_80B_A3B_MODEL_PATH,
     Qwen3_Next_80B_A3B_OTHER_ARGS,
     Qwen3_Next_80B_A3B_ENVS,
-    run_command,
 )
 
 
@@ -24,7 +23,6 @@ class TestQwen3_Next_80B_A3B(TestSingleMixUtils):
     output_token_throughput = 300
 
     def test_qwen3_next_80b_a3b(self):
-        # run_command("source /usr/local/Ascend/8.5.0/bisheng_toolkit/set_env.sh")
         self.run_throughput()
 
 
