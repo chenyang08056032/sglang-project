@@ -112,14 +112,14 @@ class TestQwen3_235B_w8a8_1p2d_in3500_out1500(TestAscendDisaggregationUtils):
     model_config = MODEL_CONFIG
     dataset_name = "random"
     request_rate = 16
-    max_concurrency = 8
+    max_concurrency = 20
     num_prompts = int(max_concurrency) * 4
-    input_len = 2048
-    output_len = 2048
+    input_len = 3500
+    output_len = 1500
     random_range_ratio = 0.5
-    ttft = 3167.46
-    tpot = 46.18
-    output_token_throughput = 12663.9
+    ttft = 9073.9
+    tpot = 63.7
+    output_token_throughput = 470.07
 
     def test_throughput(self):
         self.run_throughput()
