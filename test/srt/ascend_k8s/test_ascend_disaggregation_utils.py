@@ -229,7 +229,7 @@ def launch_node(config):
             if match:
                 idx = match.group(1)
                 hot_map_addr = f"/data/.cache/hot_map/aisbench_hot_map_p{idx}.pt"
-                prefill_args.extend(["--init-expert-location", hot_map_addr])
+                # prefill_args.extend(["--init-expert-location", hot_map_addr])
                 print(f"{pod_name} get hot map in {hot_map_addr}")
 
         for pa in prefill_args:
