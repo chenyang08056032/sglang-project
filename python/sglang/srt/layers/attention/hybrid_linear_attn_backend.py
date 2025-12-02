@@ -715,7 +715,6 @@ class GDNAttnBackend(MambaAttnBackendBase):
             )
         else:
             recurrent_state = ssm_states[cache_indices]
-            query, key = query.contiguous(), key.contiguous()
             core_attn_out, last_recurrent_state = chunk_gated_delta_rule(
                 q=query,
                 k=key,
