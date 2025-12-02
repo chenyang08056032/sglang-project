@@ -46,8 +46,6 @@ MODEL_CONFIG = {
         "--mem-fraction-static",
         0.6,
         "--disable-radix-cache",
-        "--ep-dispatch-algorithm",
-        "static",
         "--quantization",
         "w8a8_int8",
         "--max-running-requests",
