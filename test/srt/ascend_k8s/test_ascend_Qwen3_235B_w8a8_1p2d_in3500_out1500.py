@@ -56,7 +56,7 @@ MODEL_CONFIG = {
         114688,
         "--max-prefill-tokens",
         458880,
-        "--disable-overlap-scheduler",
+        "--disable-overlap-schedule",
         "--enable-dp-attention",
         "--tokenizer-worker-num",
         4,
