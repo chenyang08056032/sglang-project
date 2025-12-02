@@ -70,6 +70,8 @@ MODEL_CONFIG = {
     "decode_args": [
         "--disaggregation-mode",
         "decode",
+        "--nnodes",
+        "2",
         "--tp-size",
         32,
         "--dp-size",

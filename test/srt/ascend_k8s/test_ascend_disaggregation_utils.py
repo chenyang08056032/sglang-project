@@ -244,8 +244,8 @@ def launch_node(config):
             [
                 "--dist-init-addr",
                 dist_init_addr,
-                "--nnodes",
-                int(discover_worker_nodes() / 2),
+                # "--nnodes",
+                # int(discover_worker_nodes() / 2),
                 "--node-rank",
                 pod_index,
             ]
