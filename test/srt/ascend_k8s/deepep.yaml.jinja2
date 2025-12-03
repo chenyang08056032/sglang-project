@@ -144,6 +144,8 @@ spec:
             mountPath: /root/script
           - name: share
             mountPath: /data
+          - name: modelscope
+            mountPath: /root/.cache/modelscope
         volumes:
         - name: kube-config
           hostPath:
@@ -151,6 +153,9 @@ spec:
         - name: share
           hostPath:
             path: /data
+        - name: modelscope
+          hostPath:
+            path: /data/ascend-ci-share-pkking-sglang/modelscope
         - name: ascend-910-config
           configMap:
             name: rings-config-ascend-sglang-test
@@ -219,6 +224,8 @@ spec:
             mountPath: /root/script
           - name: share
             mountPath: /data
+          - name: modelscope
+            mountPath: /root/.cache/modelscope
         volumes:
         - name: kube-config
           hostPath:
@@ -226,6 +233,9 @@ spec:
         - name: share
           hostPath:
             path: /data
+        - name: modelscope
+          hostPath:
+            path: /data/ascend-ci-share-pkking-sglang/modelscope
         - name: ascend-910-config
           configMap:
             name: rings-config-ascend-sglang-test
@@ -294,6 +304,8 @@ spec:
             mountPath: /root/script
           - name: share
             mountPath: /data
+          - name: modelscope
+            mountPath: /root/.cache/modelscope
         volumes:
         - name: kube-config
           hostPath:
@@ -301,6 +313,9 @@ spec:
         - name: share
           hostPath:
             path: /data
+        - name: modelscope
+          hostPath:
+            path: /data/ascend-ci-share-pkking-sglang/modelscope
         - name: ascend-910-config
           configMap:
             name: rings-config-ascend-sglang-test
