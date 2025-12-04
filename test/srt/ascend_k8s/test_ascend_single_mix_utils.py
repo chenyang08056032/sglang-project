@@ -1,5 +1,7 @@
 import os
 import subprocess
+import psutil
+import socket
 
 from sglang.srt.utils import is_npu, kill_process_tree
 from sglang.test.test_utils import (
@@ -8,6 +10,16 @@ from sglang.test.test_utils import (
     CustomTestCase,
     popen_launch_server,
 )
+
+def get_nic_name():
+    for nic, addrs in psutil.net_if_addrs().items():
+        for addr in addrs:
+            if addr.family == socket.AF_INET and addr.address.startswith("192."):
+                print("The nic name matched is {}".format(nic))
+                return nic
+    return None
+
+NIC_NAME = "lo" if get_nic_name() == None else get_nic_name()
 
 QWEN3_32B_MODEL_PATH = "/root/.cache/modelscope/hub/models/aleoyang/Qwen3-32B-w8a8-MindIE"
 QWEN3_235B_MODEL_PATH = "/root/.cache/modelscope/hub/models/vllm-ascend/Qwen3-235B-A22B-W8A8"
@@ -56,8 +68,8 @@ QWEN3_32B_ENVS = {
     "PYTORCH_NPU_ALLOC_CONF": "expandable_segments:True",
     "SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT": "600",
     "HCCL_BUFFSIZE": "400",
-    "HCCL_SOCKET_IFNAME": "enp23s0f3",
-    "GLOO_SOCKET_IFNAME": "enp23s0f3",
+    "HCCL_SOCKET_IFNAME": NIC_NAME,
+    "GLOO_SOCKET_IFNAME": NIC_NAME,
     "HCCL_OP_EXPANSION_MODE": "AIV",
 }
 
@@ -166,8 +178,8 @@ QWQ_32B_ENVS = {
     "INF_NAN_MODE_FORCE_DISABLE": "1",
     "SGLANG_DISAGGREGATION_BOOTSTRAP_TIMEOUT": "600",
     "HCCL_BUFFSIZE": "2048",
-    "HCCL_SOCKET_IFNAME": "enp23s0f3",
-    "GLOO_SOCKET_IFNAME": "enp23s0f3",
+    "HCCL_SOCKET_IFNAME": NIC_NAME,
+    "GLOO_SOCKET_IFNAME": NIC_NAME,
     "HCCL_OP_EXPANSION_MODE": "AIV",
 }
 
@@ -209,8 +221,8 @@ Qwen3_Next_80B_A3B_ENVS = {
     "SGLANG_SET_CPU_AFFINITY": "1",
     "PYTORCH_NPU_ALLOC_CONF": "expandable_segments:True",
     "STREAMS_PER_DEVICE": "32",
-    "HCCL_SOCKET_IFNAME": "enp23s0f3",
-    "GLOO_SOCKET_IFNAME": "enp23s0f3",
+    "HCCL_SOCKET_IFNAME": NIC_NAME,
+    "GLOO_SOCKET_IFNAME": NIC_NAME,
     "SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK": "16",
     "HCCL_BUFFSIZE": "2000",
     "HCCL_OP_EXPANSION_MODE": "AIV",
@@ -248,8 +260,8 @@ QWEN3_30B_A3B_ENVS = {
     "SGLANG_SET_CPU_AFFINITY": "1",
     "PYTORCH_NPU_ALLOC_CONF": "expandable_segments:True",
     "STREAMS_PER_DEVICE": "32",
-    "HCCL_SOCKET_IFNAME": "enp23s0f3",
-    "GLOO_SOCKET_IFNAME": "enp23s0f3",
+    "HCCL_SOCKET_IFNAME": NIC_NAME,
+    "GLOO_SOCKET_IFNAME": NIC_NAME,
     "SGLANG_DEEPEP_NUM_MAX_DISPATCH_TOKENS_PER_RANK": "32",
     "HCCL_BUFFSIZE": "1536",
     "SGLANG_USE_FIA_NZ": "1",
@@ -277,7 +289,6 @@ def run_bench_serving(host, port, dataset_name="random", request_rate=8, max_con
     metrics = run_command(f"{command} | tee ./bench_log.txt")
     return metrics
 
-
 class TestSingleMixUtils(CustomTestCase):
     model = None
     dataset_name = None
@@ -293,6 +304,8 @@ class TestSingleMixUtils(CustomTestCase):
     ttft = None
     tpot = None
     output_token_throughput = None
+
+    print("Nic name: {}".format(NIC_NAME))
 
     @classmethod
     def setUpClass(cls):
