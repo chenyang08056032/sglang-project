@@ -57,7 +57,9 @@ jobs:
           - name: test_ascend_qwen3_8b_in1000_out300_bs8
             test_case: test/srt/ascend_k8s/test_ascend_qwen3_8b_in1000_out300_bs8.py
             npu_num: 4
-
+          - name: test_ascend_qwen3_8b_in1000_out300_bs16
+            test_case: test/srt/ascend_k8s/test_ascend_qwen3_8b_in1000_out300_bs16.py
+            npu_num: 4
     uses: ./.github/workflows/nightly-test-ascend-single-node.yml
     with:
       soc_version: a3
