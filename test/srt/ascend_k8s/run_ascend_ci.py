@@ -222,7 +222,7 @@ if __name__ == "__main__":
     print("apply k8s yaml... KUBE_NAME_SPACE:{}, KUBE_CONFIG_MAP:{}, KUBE_JOB_TYPE:{}"
           .format(KUBE_NAME_SPACE, KUBE_CONFIG_MAP, KUBE_JOB_TYPE))
     k8s_yaml = "k8s_single.yaml" if KUBE_JOB_TYPE == "single" else "deepep.yaml"
-    result = run_command("kubectl apply -f {k8s_yaml}")
+    result = run_command("kubectl apply -f {}".format(k8s_yaml))
     if result:
         print(result)
 
